@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JSON Formatter
 
-## Getting Started
+一个以 **Vercel 风格** 打磨体验的 JSON 工具：**实时格式化 / 压缩 / 排序 / 折叠查看 / 搜索 / 复制 / 去除转义**，支持移动端与桌面端。
 
-First, run the development server:
+> 默认本地处理：你粘贴的 JSON 不会被上传到服务器。
+
+## ✨ Features
+
+- 实时格式化：输入后自动解析并在右侧输出
+- 搜索：关键字高亮，`Enter` / `Shift + Enter` 跳转上一处/下一处
+- 全屏：仅显示格式化结果（再点还原）
+- 折叠：支持按“层级”自动折叠（可输入 1–7），并可手动展开/收起
+- 排序：递归按 key 排序（适合 diff）
+- 压缩：把格式化后的 JSON **压缩并回填**到左侧输入框（便于复制粘贴）
+- 复制：一键复制格式化结果
+- 去除转义：对常见 `\"`、`\n`、`\uXXXX` 等做“宽松反转义”，并回填
+
+## 🧱 Tech Stack
+
+- Next.js (App Router)
+- React
+- Tailwind CSS v4
+- shadcn/ui + Radix UI
+- Monaco Editor (`@monaco-editor/react`)
+- Lucide Icons
+- Sonner (toast)
+- Vitest (unit tests)
+
+## 🚀 Getting Started
+
+### 1) 安装依赖
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2) 本地开发
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+打开 `http://localhost:3000`。
 
-## Learn More
+## 🧪 Scripts
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm lint
+pnpm test
+pnpm build
+pnpm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Environment Variables (Optional)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+你可以创建 `.env.local`：
 
-## Deploy on Vercel
+```bash
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_GITHUB_URL=https://github.com/d0ublecl1ck/json-formatter
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `NEXT_PUBLIC_SITE_URL`：用于 `metadataBase`、`/sitemap.xml`、`/robots.txt`
+- `NEXT_PUBLIC_GITHUB_URL`：页头 GitHub 按钮跳转地址
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔒 Privacy
+
+项目默认不上传输入内容；更多说明见站内隐私页面：`/privacy`。
+
+## 🤝 Contributing
+
+欢迎贡献：提 Issue / 提 PR 都可以。
+
+建议在提交前运行：`pnpm lint && pnpm test`。
+
+## 📦 Deploy
+
+推荐使用 Vercel 部署（零配置）。
+
+## 📝 Notes
+
+- 为了避免默认 CDN，本项目会在安装依赖后把 Monaco 静态资源复制到 `public/monaco/vs`（已在 `.gitignore` 中忽略）。
